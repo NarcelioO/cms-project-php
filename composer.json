@@ -1,0 +1,17 @@
+{
+    "name": "narce/php-site-composer",
+    "description": "PHP Professional",
+    "autoload": {
+        "psr-4": {
+            "app\\": "app/",
+            "core\\":"core/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Narcelio",
+            "email": "narcelioferdffgh@gmail.com"
+        }
+    ],
+    "require": {}
+}
