@@ -4,7 +4,7 @@
     "autoload": {
         "psr-4": {
             "app\\": "app/",
-            "core\\":"core/"
+            "core\\": "core/"
         }
     },
     "authors": [
@@ -13,5 +13,8 @@
             "email": "narcelioferdffgh@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "twig/twig": "~2.4",
+        "twig/extensions": "~1.5"
+    }
 }

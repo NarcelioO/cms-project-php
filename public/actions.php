@@ -1,7 +1,10 @@
 <?php
+
+use core\Database;
+require '../config.php';
 session_start();
 require 'connection.php';
-
+//$connection = new Database($config);
 if(isset($_POST['save-post'])){
     if($_SERVER['REQUEST_METHOD']==='POST'){
         $title = $_POST['title'];
@@ -15,7 +18,7 @@ if(isset($_POST['save-post'])){
             $postId = (int)$_POST['id'];
             $stms = $connection->prepare("UPDATE posts SET title = ?, content = ?, category = ? WHERE id = ?");
             $stms->bind_param("sssi", $title, $content, $category, $postId);
-            $stms->execute();
+            $stms->execute(); 
             $stms->close();
             $message = "Registro atualizado com sucesso";
             //create
