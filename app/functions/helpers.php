@@ -2,6 +2,8 @@
 define('BASE_PATH', '/');
 define('ASSETS_PATH', BASE_PATH . 'public/assets/imgs/');
 define('ASSET_BASE_URL', '/public/');
+
+
 function dd($value){
     echo "<pre>";
     var_dump($value);
@@ -21,4 +23,8 @@ function base_url($path=''){
     $host = $_SERVER['HTTP_HOST'];
 
     return $protocol . "://" . $host . "/" .ltrim($path, '/');
+}
+
+function asset($path){
+    return base_url(). "/assets/" .  ltrim($path, '/');
 }

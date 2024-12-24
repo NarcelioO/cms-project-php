@@ -1,23 +1,21 @@
 <?php
 
-namespace app\portal\controllers;
+namespace app\controllers\portal;
 
-class HomeController
+use core\Controller;
+use core\Database;
+
+$_SESSION['name'] = 'john doe';
+class HomeController extends Controller
 {
     public function index()
     {
-        echo "Welcome to the Home Page!";
+      $heading = "Welcome to the Home Page";
+      $this->view('portal/index.view.php',[
+        'heading' => $heading
+      ]);
     }
 }
 
-require('C:/xampp/htdocs/php-site-composer/app/views/index.view.php');
 
-//require(__DIR__ .  '/../views/index.view.php');
-
-// class HomeController{
-
-//     public function index(){
-//         echo "Home";
-//     }
-//}
 ?>

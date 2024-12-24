@@ -4,7 +4,7 @@
     <div class="flex">
       <a href="#" class="-m-1.5 p-1.5">
         <span class="sr-only">Your Company</span>
-        <img src="<?= base_url();?>/assets/imgs/logo_aceda.png" class="h-8 w-auto" alt="">
+        <img src="<?= asset('imgs/logo_aceda.png');?>" class="h-8 w-auto" alt="">
       </a>
     </div>
     <div class="flex lg:hidden">

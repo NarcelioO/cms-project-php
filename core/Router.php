@@ -17,8 +17,15 @@ function abort($code = 404){
 
     die();
 }
-if(array_key_exists($uri, $routes)){
-     require $routes[$uri];
-}else{
-    abort(404);
+
+
+function routeController($uri, $routes){
+
+    if(array_key_exists($uri, $routes)){
+        require $routes[$uri];
+    }else{
+        abort(404);
+    }
 }
+
+routeController($uri, $routes);
