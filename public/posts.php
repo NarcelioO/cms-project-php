@@ -1,11 +1,22 @@
-<?php require 'views/partials/head.php';?>
+<?php
+
+
+
+ require '../app/views/partials/head.php';?>
 <?php
 require 'connection.php';
+use core\Database;
 
-?>
+$db = new Database ($config['database']);
+// $config = require('../config.php');
+
+// $stmt = $connection->query("select * from posts");
+// $stmt->execute();
+// $posts = $stmt->fetchAll();
+// ?>
 <!-- component -->
 <div class="min-h-screen flex flex-row bg-gray-100 ">
-    <?php require 'views/partials/nav.php';?>
+    <?php require '../app/views/partials/admin/nav.php';?>
     <div class="w-full p-4 flex flex-col">
             <div class="flex justify-between items-center w-full">
                 <h1 class="font-medium text-2xl text-gray-700">Posts</h1>
@@ -44,7 +55,7 @@ require 'connection.php';
             </div>
     </div>
 </div>
-<?php require 'views/partials/footer.php' ;?>
+<?php require '../app/views/partials/footer.php' ;?>
 
 <?php
 //require '../vendor/autoload.php';

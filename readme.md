@@ -1,0 +1,1 @@
+Hoje ela precisa administrar certas partes do site, como cadastro de posts, cadastro de cursos, cadastro de voluntarios, consulta de curriculos, solicitação de serviços, consulta de cadastro no evento 'empreedaceda', 

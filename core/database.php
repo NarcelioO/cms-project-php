@@ -1,22 +1,38 @@
 <?php
 
-namespace Core;
+namespace core;
 
 use PDO;
+use PDOException;
+
 
 class Database{
-    public $connection;
+    private $config;
+    private $connection;
 
-    public function __construct($config){
-        $dsn = 'mysql:'.http_build_query($config,'',';');
-        $this->connection = new PDO($dsn, 'root', '',[
-            PDO::ATTR_DEFAULT_FETCH_MODE =>PDO::FETCH_ASSOC]);
+    //a conexão é feita na intanciação e não em toda query
+    public function __construct()
+    {
+        try
+        {
+            $this->config = require '../config/config.php';
+            $config = $this->config['database'];
+            $dsn = "mysql:" . http_build_query($config, '', ';');
+            $this->connection = new PDO($dsn, $config['username'], $config['pass'],[
+                PDO::ATTR_DEFAULT_FETCH_MODE=> PDO::FETCH_ASSOC
+            ]);
+        }catch(PDOException $e){
+            echo "Connection error" .$e->getMessage();
+        }
+       
+
     }
 
-    public function query($query, $params=[]){
+    public function query($query)
+    {
         $stmt = $this->connection->prepare($query);
-        $stmt->execute($params);
-
+        $stmt->execute();
         return $stmt;
     }
+            
 }
