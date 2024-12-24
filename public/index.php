@@ -2,6 +2,7 @@
 
 use core\Controller;
 use core\Database;
+use core\Method;
 
 require '../bootstrap.php';
 //require '../core/Router.php';
@@ -9,8 +10,14 @@ require '../bootstrap.php';
 
 try{
     $controller = new Controller();
-    $controller->load();
-    dd($controller);
+    $controller = $controller->load();
+
+    $method = new Method();
+    $method = $method->load($controller);
+
+    $controller->$method();
+
+
 }catch(Exception $e){
     dd($e->getMessage());
 }

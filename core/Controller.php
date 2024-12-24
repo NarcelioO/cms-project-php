@@ -11,7 +11,6 @@ class Controller {
     private $controller;
     private $namespace;
     private $folders = [
-        'app\controllers',
         'app\controllers\portal',
         'app\controllers\admin'
     ];
@@ -44,15 +43,18 @@ class Controller {
 
         if(!$this->controllerExist($controller)){
             throw new ControllerNotExistException("Esse controller não existe");
+        }else{
+            return $this->instantiateController();
         }
 
-        return $this->instantiateController();
+        
        
     }
     public function getControllerNotHome(){
 
         if(substr_count($this->uri,  '/') > 1){
-            list($controller,$method) = array_values(array_filter( explode('/', $this->uri)));
+            //list($controller,$method);
+            [$controller, $method]= array_values(array_filter( explode('/', $this->uri)));
             return ucfirst($controller).'Controller';
         } 
         return  ucfirst(ltrim($this->uri, '/')).'Controller';

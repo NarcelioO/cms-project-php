@@ -1,17 +1,21 @@
 <?php
-
 namespace app\controllers\portal;
+
 use core\Controller;
+use core\Database;
 
-echo 'About Page';
+$_SESSION['name'] = 'john doe';
+class AboutController extends Controller
+{
+    public function index()
+    {
+    //   $heading = "Welcome to the Home Page";
+    //   $this->view('portal/index.view.php',[
+    //     'heading' => $heading
+    //   ]);
+        echo "About Controller";
+    }
+}
 
-// class AboutController extends Controller
-// {
-//     public function index()
-//     {
-//         // Load the about view
-//         return Controller::view('about.view',[
-//                 $heading = 'About Us'
-//         ]);
-//     }
-// }
+
+?>
