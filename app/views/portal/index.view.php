@@ -1,5 +1,5 @@
-<?php require('partials/head.php');?>
-<?php require('partials/nav.php'); ?>
+<?php require(BASE_PATH . 'views/partials/head.php');?>
+<?php require(BASE_PATH . 'views/partials/nav.php'); ?>
 
 <div class="min-h-full bg-neutral-200 ">
     <main>
@@ -22,7 +22,7 @@
                     </span>
                     
                 </div>
-
+                <?= $heading;?>
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
                     <div class="max-w-md bg-white rounded-lg shadow">
                         <a href="#">
@@ -305,7 +305,7 @@
         </div>
     </main>
 </div>
-<?php require('partials/footer.php');?>
+<?php require(BASE_PATH . 'views/partials/footer.php');?>
     
 
 

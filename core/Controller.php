@@ -14,7 +14,6 @@ class Controller {
         'app\controllers\portal',
         'app\controllers\admin'
     ];
-    private $model;
 
     public function __construct() {
         $this->uri = Uri::uri();
@@ -53,9 +52,19 @@ class Controller {
     public function getControllerNotHome(){
 
         if(substr_count($this->uri,  '/') > 1){
-            //list($controller,$method);
-            [$controller, $method]= array_values(array_filter( explode('/', $this->uri)));
-            return ucfirst($controller).'Controller';
+            //dd(array_values(array_filter( explode('/', $this->uri))));
+            $segments = array_values(array_filter( explode('/', $this->uri)));
+
+            $controller = $segments[0] ?? 'home';
+            $subController = $segments[1] ?? null;
+            $method = $segments[2] ?? 'index';
+            
+            $controller = ucfirst($controller);
+            if($subController){
+                $controller .= ucfirst($subController);
+            }
+             //dd($controller);
+            return $controller.'Controller';
         } 
         return  ucfirst(ltrim($this->uri, '/')).'Controller';
     }
@@ -81,7 +90,7 @@ class Controller {
 
     public static function view($path, $data = []) {
         extract($data);
-        require BASE_PATH . 'app/views/'. ltrim($path, '/');
+        return base_path('app/views/'. $path);
     }
 }
 

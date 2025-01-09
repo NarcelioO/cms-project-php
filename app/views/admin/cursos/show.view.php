@@ -3,9 +3,9 @@
 <div class="flex">
 <?php require base_path('views/admin/partials/nav.php');?>
     <ul>
-        <?php foreach($voluntarios as $voluntario):?>
+        <?php foreach($posts as $post):?>
             <li>
-                <?= $voluntario['name'];?>
+                <?= $post['title'];?>
             </li>
         <?php endforeach?>
     </ul>

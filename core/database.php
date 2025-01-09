@@ -1,5 +1,4 @@
 <?php
-
 namespace core;
 
 use PDO;
@@ -10,8 +9,9 @@ class Database{
     private $config;
     private $connection;
 
-    //a conexão é feita na intanciação e não em toda query
-    public function __construct()
+    private static $instance = null;
+
+    private function __construct()
     {
         try
         {
@@ -27,7 +27,14 @@ class Database{
        
 
     }
+    public static function getInstance(){
+        if(self::$instance === null){
+            self::$instance = new self();
+        }
 
+        return self::$instance;
+    }
+    
     public function query($query)
     {
         $stmt = $this->connection->prepare($query);

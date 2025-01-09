@@ -16,5 +16,11 @@
     "require": {
         "twig/twig": "~2.4",
         "twig/extensions": "~1.5"
+    },
+    "scripts": {
+        "serve" : [
+        "Composer\\Config::disableProcessTimeout",
+        "php -S localhost:8000 -t public"
+        ]
     }
 }

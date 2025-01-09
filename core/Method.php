@@ -1,11 +1,12 @@
 <?php
 namespace core;
+
 use app\classes\Uri;
 use exceptions\MethodNotExistException;
 
 class Method{
     private $uri;
-
+    
     public function __construct()
     {
         $this->uri = Uri::uri();
@@ -27,8 +28,11 @@ class Method{
     {
         if(substr_count($this->uri, '/')>1)
         {
-           
-            [$controller, $method] = array_values(array_filter(explode('/', $this->uri)));
+            $segments = array_values(array_filter( explode('/', $this->uri)));
+
+            $controller = $segments[0] ?? 'home';
+            $subController = $segments[1] ?? null;
+            $method = $segments[2] ?? 'index';
             
             return $method;
         }
