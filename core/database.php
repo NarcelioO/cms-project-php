@@ -16,7 +16,7 @@ class Database{
         try
         {
             $this->config = require '../config/config.php';
-            $config = $this->config['database'];
+            $config = $this->config ['database'];
             $dsn = "mysql:" . http_build_query($config, '', ';');
             $this->connection = new PDO($dsn, $config['username'], $config['pass'],[
                 PDO::ATTR_DEFAULT_FETCH_MODE=> PDO::FETCH_ASSOC
@@ -27,7 +27,8 @@ class Database{
        
 
     }
-    public static function getInstance(){
+    public static function getInstance()
+    {
         if(self::$instance === null){
             self::$instance = new self();
         }
@@ -35,11 +36,29 @@ class Database{
         return self::$instance;
     }
     
-    public function query($query)
+    public function query($query, $params = [])
     {
         $stmt = $this->connection->prepare($query);
-        $stmt->execute();
+        $stmt->execute($params);
         return $stmt;
     }
+
+    // public function insert($query, $params = [])
+    // {
+    //     $stmt = $this->connection->prepare($query);
+    //     return $stmt->execute($params);
+    // }
+
+    // public function update($query, $params = [])
+    // {
+    //     $stmt = $this->connection->prepare($query);
+    //     return $stmt->execute($params);
+    // }
+
+    // public function delete($query, $params = [])
+    // {
+    //     $stmt = $this->connection->prepare($query);
+    //     return $stmt->execute($params);
+    // }
             
 }

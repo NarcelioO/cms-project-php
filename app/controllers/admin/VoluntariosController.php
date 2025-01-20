@@ -3,7 +3,7 @@ namespace app\controllers\admin;
 
 use app\models\Voluntarios;
 
-class AdminVoluntariosController{
+class VoluntariosController{
 
    
    public function index()

@@ -24,11 +24,12 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php foreach($posts as $post):?>
                     <tr>
                         <td class=" font-medium text-sm text-gray-700 py-4 underline:bg-sky-500" >
-                            <a href="#">Empreendedorismo Feminino: Força Motriz nas Periferias e Seu Impacto no Crescimento do Brasil</a>
+                            <a href="#"><?= $post['title'];?></a>
                         </td>
-                    <td class=" font-medium text-sm text-gray-700 text-center ">Empreendedorismo</td>
+                    <td class=" font-medium text-sm text-gray-700 text-center "><?= $post['category'];?></td>
                     <td class=" font-medium text-sm text-gray-700 text-center ">Milena Alundaasdsadsa</td>
                     <td class=" font-medium text-sm text-gray-700 text-center ">Draft</td>
                     <td class=" font-medium text-sm text-gray-700 text-center ">10/02/2024</td>
@@ -37,23 +38,7 @@
                         <a href="/admin/posts/destroy/:id" class="text-[#F54040]"><i class="fa-solid fa-trash-can" style="color: #f54040;"></i>Excluir</button>
                     </td>
                     </tr>
-                    <tr>
-                        <td class=" font-medium text-sm text-gray-700 py-4 underline:bg-sky-500" >
-                            <a href="#">Informativo Cancelamento Reunião 03-07-2024</a>
-                        </td>
-                    <td class=" font-medium text-sm text-gray-700 text-center ">Avisos</td>
-                    <td class=" font-medium text-sm text-gray-700 text-center ">Narcelio</td>
-                    <td class=" font-medium text-sm text-gray-700 text-center ">Published</td>
-                    <td class=" font-medium text-sm text-gray-700 text-center ">10/02/2024</td>
-                    <td class=" font-bold text-sm text-gray-700 text-center ">
-                        <a href="/admin/posts/update/:id"  class="text-[#FF8800] mr-2"><i class="fa-solid fa-pen-to-square" style="color:#FF8800"></i>Editar</button>
-                        <a href="/admin/posts/destroy/:id" class="text-[#F54040]"><i class="fa-solid fa-trash-can" style="color: #f54040;"></i>Excluir</button>
-                    </td>
-                    </tr>
-                    
-                   
-                   
-                   
+                    <?php endforeach; ?>                
                 </tbody>
             </table>
             </div>

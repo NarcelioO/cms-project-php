@@ -39,7 +39,7 @@ class Controller {
 
     private function controllerNotHome() {
         $controller = $this->getControllerNotHome();
-
+        //dd($controller)
         if(!$this->controllerExist($controller)){
             throw new ControllerNotExistException("Esse controller não existe");
         }else{
@@ -61,9 +61,9 @@ class Controller {
             
             $controller = ucfirst($controller);
             if($subController){
-                $controller .= ucfirst($subController);
+                $controller = ucfirst($subController);
             }
-             //dd($controller);
+            // dd($subController);
             return $controller.'Controller';
         } 
         return  ucfirst(ltrim($this->uri, '/')).'Controller';
@@ -71,6 +71,8 @@ class Controller {
 
     private function controllerExist($controller){
         $controllerExist = false;
+
+        
 
         foreach($this->folders as $folder){
             if(class_exists($folder.'\\'.$controller)){
@@ -90,7 +92,7 @@ class Controller {
 
     public static function view($path, $data = []) {
         extract($data);
-        return base_path('app/views/'. $path);
+        return base_path('/views/'. ltrim($path));
     }
 }
 

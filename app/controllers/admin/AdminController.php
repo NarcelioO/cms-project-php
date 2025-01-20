@@ -1,15 +1,18 @@
 <?php 
 namespace app\controllers\admin;
 
+use core\Controller;
+
 class AdminController{
     
     public function index()
     {
-            $heading = "Home";
+            $heading = "Admin Controller";
         //    $posts = Post::all();
            //dd($posts);
-           require view('admin/index.view.php',[
-              'heading'=>$heading,
+        //    return require (base_path('../app/views/admin/index.view.php'));
+           return require Controller::view('admin/index.view.php',[
+              
            ]);
     }
     

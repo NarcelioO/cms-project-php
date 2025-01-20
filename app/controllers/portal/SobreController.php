@@ -4,11 +4,11 @@ namespace app\controllers\portal;
 use core\Controller;
 
 
-class AboutController extends Controller
+class SobreController extends Controller
 {
     public function index()
     {
-      $heading = "About Home";
+      $heading = "Pagina Sobre";
       require view('portal/about.view.php',[
         'heading' => $heading
       ]);

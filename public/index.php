@@ -1,11 +1,14 @@
 <?php
 
+use app\classes\Uri;
 use core\Controller;
+use core\Database;
 use core\Method;
 use core\Params;
 
 require '../bootstrap.php';
 //require '../core/Router.php';]
+
 try{
     
     $controller = new Controller;
@@ -16,8 +19,8 @@ try{
 
     $params = new Params;
     $params = $params->load();
-
-    $controller->$method($params);
+    
+    $controller->$method();
 
 
 }catch(Exception $e){

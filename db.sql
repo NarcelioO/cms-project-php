@@ -34,8 +34,11 @@ create table voluntario(
 create table post(
     id int primary key auto_increment,
     title varchar(255) not null,
+    slug varchar(255) not null
+    author varchar(140) not null,
     content text not null,
     user_id int not null,
+    image_path varchar(255),
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp on update current_timestamp,
     foreign key (user_id) references user(id)

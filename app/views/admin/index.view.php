@@ -3,7 +3,7 @@
     <?php require ('partials/nav.php');?>
         <main class="">
             <h1>
-                Admin Home
+                <?= $heading;?>
             </h1>
         </main>
     </div>
