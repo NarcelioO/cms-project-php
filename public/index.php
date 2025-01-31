@@ -1,37 +1,37 @@
 <?php
 
- require 'views/partials/head.php';?>
-<?php require 'connection.php';?>
 
-<?php 
 require '../bootstrap.php';
-use app\database\models\User;
-use app\classes\Person;
 
-$person = new Person(14, 'Masculino');
-$person::$name ="Narcelio";
-// $user = new User();
-// $user->read();
+use core\Controller;
+use core\Method;
+use core\Params;
 
-$routes = [
-    '/' => 'controllers/HomeController.php',
-    '/about' => 'controllers/AboutController.php'
+try{
+    
+    $controller = new Controller;
+    $controller = $controller->load();
+    
+    $method = new Method;
+    $method = $method->load($controller);
 
-]
+    $params = new Params;
+    $params = $params->load();
+    
+    $controller->$method($params);
+   
+
+
+}catch(Exception $e){
+    dd($e->getMessage());
+}
+
+
+
+if($_SERVER['REQUEST_URI'] === '/login'){
+    require '../app/controllers/login/LoginController.php';
+}
+
 
 ?>
-<!-- component -->
-<div class="min-h-screen flex flex-row bg-gray-100 ">
-    <?php require 'views/partials/nav.php';?>
-        <div class=" w-full p-4">
-               Home
-        </div>
-</div>
-<?php require 'views/partials/footer.php' ;?>
-
-<?php
- require '../vendor/autoload.php';
-?>
-
-
 
