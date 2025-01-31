@@ -1,13 +1,11 @@
 <?php
 
-use app\classes\Uri;
-use core\Controller;
-use core\Database;
-use core\Method;
-use core\Params;
 
 require '../bootstrap.php';
-//require '../core/Router.php';]
+
+use core\Controller;
+use core\Method;
+use core\Params;
 
 try{
     
@@ -20,7 +18,8 @@ try{
     $params = new Params;
     $params = $params->load();
     
-    $controller->$method();
+    $controller->$method($params);
+   
 
 
 }catch(Exception $e){
@@ -29,9 +28,9 @@ try{
 
 
 
-// if($_SERVER['REQUEST_URI'] === '/login'){
-//     require '../app/controllers/login/LoginController.php';
-// }
+if($_SERVER['REQUEST_URI'] === '/login'){
+    require '../app/controllers/login/LoginController.php';
+}
 
 
 ?>

@@ -9,11 +9,10 @@ function dd($value){
     echo "<pre>";
     var_dump($value);
     echo "</pre>";
-
-
     die();
 
 }
+
 function base_path($path)
 {
     return BASE_PATH . ltrim($path, '/');
@@ -22,6 +21,7 @@ function base_path($path)
 function urlIs($value){
     return $_SERVER['REQUEST_URI'] === $value;
 }
+
 
 function base_url($path=''){
     $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
@@ -33,9 +33,4 @@ function base_url($path=''){
 
 function asset($path){
     return base_url(). "/assets/" .  ltrim($path, '/');
-}
-
-function view($path, $data = []){   
-        extract($data);
-        return base_path('/views/'. ltrim($path));
 }

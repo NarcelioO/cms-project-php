@@ -7,6 +7,7 @@ class Model
 {
     protected static $table;
 
+    
     public static function all()
     {
          $db = new Database();

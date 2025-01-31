@@ -1,14 +1,21 @@
 <?php
 namespace app\controllers\admin;
 
+use app\middleware\AuthMiddleware;
 use app\models\PostModel;
+use app\services\Validator;
+use core\Controller;
 
-//use app\models\Post;
 
 
 class PostsController{
 
 
+   public function __construct()
+   {
+      AuthMiddleware::checkAuth();
+   }
+  
    private function generateSlug($title)
    {
       $slug = strtolower(trim($title));
@@ -16,77 +23,117 @@ class PostsController{
       $slug = preg_replace('/-+/', '-', $slug);
       return trim($slug, '-');
    }
-   private function processImage($image)
-   {
 
-   }
+   
+
 
    public function index()
    {
       $postModel = PostModel::getInstance();
       $heading = "Posts";
-      $posts = $postModel->findAll();
-      //dd($posts);
-      require view('admin/posts/index.view.php',[
-         'heading'=>$heading,
+      $posts = $postModel->all();
+      
+      require Controller::view('/admin/posts/index.view.php',[
+         'heading' => $heading,
          'posts' => $posts
       ]);
    }
 
    public function show($req)
    {
-      require view('admin/posts/show.view.php',[
+
+      $postModel = PostModel::getInstance();
+      $heading = "Posts";
+      $post = $postModel->find($req['id']);
+
+      require Controller::view('admin/posts/show.view.php',[
          'heading'=>$heading,
-         'posts' => $posts
+         'post' => $post
       ]);
    }
    
 
    public function create()
    {
-      require view('admin/posts/create.view.php');
+      require Controller::view('admin/posts/create.view.php');
    }
+
 
    public function store()
    {
-     //var_dump($_POST['title']);
-     echo "<pre>";
-     var_dump($_POST);
-     var_dump($_FILES);
-     echo "</pre>";
-     $data = 
-     [
-            "title" => htmlspecialchars(strip_tags($_POST['title']?? '')),
-            "category" => htmlspecialchars(strip_tags($_POST['category'] ?? '')),
-            "status" => htmlspecialchars(strip_tags($_POST['status']?? '')),
-            "author" => htmlspecialchars(strip_tags($_POST['author']?? '')),
-            "content" => htmlspecialchars(strip_tags($_POST['content']?? '')),
-            "slug" => $this->generateSlug($_POST['title'])
-     ];
-     dd($data);
-       
 
-      // ];
-      // $postId = PostModel::create($data);
-      // if($postId){
+      $imageName = Validator::processImage($_FILES['image']);
+      $data = 
+      [
+               "title" => Validator::string($_POST['title'], 3, 255),
+               "slug" => $this->generateSlug($_POST['title']),
+               //"user_id" => ($_POST['autor']?? ''),
+               "status" => isset($_POST['status']) ?? $_POST['status'] === '1',
+               "content" => Validator::string($_POST['content'], 3),
+               "image_path" => $imageName ?? ''
+      ];
+      //dd($data);
+      $categoria = ($_POST['category'] ?? '');
       
-      // }
+      $postModel = PostModel::getInstance();
+      $postId = $postModel->create($data);
 
-      // echo "Post criado com sucesso! ID: {$postId}";
+      // $categoriaModel = CategoriaModel::getInstance();
+      // $categoriaId = $categoriaModel->create(['nome' => $categoria]);
+
+
+      // $postModel->attachedCategoria($postId, $categoriaId);
+
+
+      if($postId){
+         header('Location: /admin/posts');
+      }else{
+         echo "Erro ao criar post";
+      }
+
+
    }
 
-   public function edit($id)
+   public function edit($request)
    {
-      //pego o id faço a cunsulta e envio os dados para a edição
+      $postModel = PostModel::getInstance();
+      $post = $postModel->find($request->params);
+      require Controller::view('admin/posts/create.view.php',[
+         'post' => $post
+      ]);
    }
 
    public function update($id, $data)
    {
+      $instance = PostModel::getInstance();
+      $sql = "update posts set title = :title, category = :category, image_path = :image_path, status = :status, author = :author, content = :content, slug = :slug where id = :id";
+      $stmt = $instance->update($sql,[
+         'title' => $data['title'],
+         'category' => $data['category'],
+         'image_path' => $data['image_path'] ?? null,
+         'status' => $data['status'],
+         'author' => $data['author'],
+         'content' => $data['content'],
+         'slug' => $data['slug'],
+         'id'=>$id
+      ]);
 
+      return $stmt;
    }
 
-   public function destroy($id){
+   public function destroy($id)
+   {
+     dd($id);
+      $instance = PostModel::getInstance();
+      $stmt = $instance->delete($id->params);
       
+      if(!$stmt){
+         $_SESSION['error'] = "Post não encontrado ou já deletado";
+         header('Location: /admin/posts');   
+      }
+      $_SESSION['sucess'] = "Post delete com sucesso!";
+      header('Location: /admin/posts');
+      exit;
    }
   
 

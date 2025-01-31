@@ -43,22 +43,9 @@ class Database{
         return $stmt;
     }
 
-    // public function insert($query, $params = [])
-    // {
-    //     $stmt = $this->connection->prepare($query);
-    //     return $stmt->execute($params);
-    // }
-
-    // public function update($query, $params = [])
-    // {
-    //     $stmt = $this->connection->prepare($query);
-    //     return $stmt->execute($params);
-    // }
-
-    // public function delete($query, $params = [])
-    // {
-    //     $stmt = $this->connection->prepare($query);
-    //     return $stmt->execute($params);
-    // }
+    public static function lastInsertId()
+    {
+        return self::getInstance()->connection->lastInsertId();
+    }
             
 }

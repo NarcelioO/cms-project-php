@@ -94,6 +94,18 @@ class Controller {
         extract($data);
         return base_path('/views/'. ltrim($path));
     }
+
+    private static function verifyAuthentication()
+    {
+        session_start();
+
+        if(!isset($_SESSION['user_id']))
+        {
+            header('Location: /admin/auth/login');
+            exit();
+        }
+
+    }
 }
 
 

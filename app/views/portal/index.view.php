@@ -22,7 +22,6 @@
                     </span>
                     
                 </div>
-                <?= $heading;?>
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
                     <div class="max-w-md bg-white rounded-lg shadow">
                         <a href="#">
