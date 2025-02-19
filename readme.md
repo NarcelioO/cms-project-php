@@ -8,7 +8,6 @@ Certifique-se de ter as seguintes dependências instaladas:
 
 - PHP >= 7.4
 - Composer
-- XAMPP
 
 ## Instalação
 
@@ -26,16 +25,12 @@ composer install
 ### Passo 3: Configurar o Ambiente
 Renomeie o arquivo `.env.example` para `.env` e configure as variáveis de ambiente conforme necessário.
 
-### Passo 4: Configurar o Banco de Dados
-Configure seu banco de dados no arquivo `.env` e execute as migrações:
-```bash
-composer run-script migrate
-```
 
 ## Executando a Aplicação
-Inicie o servidor do XAMPP e acesse a aplicação no navegador:
-```
-http://localhost/seu-repositorio/public
+Para iniciar o servidor embutido do php, use o seguinte comando:
+
+```bash
+composer serve
 ```
 
 ## Testes
@@ -43,9 +38,3 @@ Para executar os testes, use o seguinte comando:
 ```bash
 composer test
 ```
-
-## Contribuição
-Sinta-se à vontade para contribuir com este projeto. Envie um pull request com suas alterações.
-
-## Licença
-Este projeto está licenciado sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
