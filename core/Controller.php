@@ -3,7 +3,7 @@ namespace core;
 use app\classes\Uri;
 use core\Model;
 use app\exceptions\ControllerNotExistException;
-
+use app\middleware\AuthMiddleware;
 
 class Controller {
 
@@ -17,6 +17,10 @@ class Controller {
 
     public function __construct() {
         $this->uri = Uri::uri();
+
+        if($this->isAdminRoute()){
+            AuthMiddleware::checkAuth();
+        }
     }
 
     public function load() {
@@ -44,9 +48,7 @@ class Controller {
             throw new ControllerNotExistException("Esse controller não existe");
         }else{
             return $this->instantiateController();
-        }
-
-        
+        } 
        
     }
     public function getControllerNotHome(){
@@ -95,6 +97,25 @@ class Controller {
         return base_path('/views/'. ltrim($path));
     }
 
+    protected function render($path, $data = []) {
+        extract($data);
+        return require base_path('/views/'. ltrim($path));
+    }
+
+    private function isAdminRoute()
+    {
+        $segments = array_values(array_filter(explode('/', $this->uri)));
+
+        return isset($segments[0]) && $segments[0] === 'admin' && !$this->isAuthRoute();
+    }
+
+    private function isAuthRoute()
+    {
+        $segments = array_values(array_filter(explode('/', $this->uri)));
+        return isset($segments[1]) &&
+            $segments[0] === 'admin' &&
+            $segments[1] === 'auth';
+    }
     private static function verifyAuthentication()
     {
         session_start();

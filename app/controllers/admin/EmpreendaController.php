@@ -1,21 +1,18 @@
 <?php
 namespace app\controllers\admin;
 
-use app\middleware\AuthMiddleware;
 use core\Controller;
 
-class AdminCursosController{
+class EmpreendaController{
 
    
    
    public function index()
    {
-      $heading = "Cursos";
-      //$posts = Cursos::all();
-      //dd($cursos);
-      require Controller::view('admin/cursos/index.view.php',[
+      $heading = "Empreenda";
+
+      require Controller::view('/admin/empreenda/index.view.php',[
          'heading'=>$heading,
-         //'posts' => $posts
       ]);
    }
 

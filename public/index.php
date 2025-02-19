@@ -1,14 +1,14 @@
 <?php
-
-
 require '../bootstrap.php';
 
 use core\Controller;
 use core\Method;
 use core\Params;
 
+
+
 try{
-    
+
     $controller = new Controller;
     $controller = $controller->load();
     
@@ -20,16 +20,10 @@ try{
     
     $controller->$method($params);
    
-
-
 }catch(Exception $e){
-    dd($e->getMessage());
-}
+    header('Location: /erro/404');
+    dd('Erro: ' .  $e->getMessage());
 
-
-
-if($_SERVER['REQUEST_URI'] === '/login'){
-    require '../app/controllers/login/LoginController.php';
 }
 
 

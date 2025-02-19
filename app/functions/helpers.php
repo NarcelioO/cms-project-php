@@ -4,7 +4,6 @@ define('BASE_PATH', __DIR__ . '/../');
 define('ASSETS_PATH', BASE_PATH . 'public/assets/imgs/');
 define('ASSET_BASE_URL', '/public/');
 
-
 function dd($value){
     echo "<pre>";
     var_dump($value);

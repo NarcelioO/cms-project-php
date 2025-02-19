@@ -9,7 +9,7 @@ class SobreController extends Controller
     public function index()
     {
       $heading = "Pagina Sobre";
-      require view('portal/about.view.php',[
+      require Controller::view('portal/about.view.php',[
         'heading' => $heading
       ]);
     }

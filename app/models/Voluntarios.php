@@ -25,7 +25,7 @@ class Voluntarios
     public static function all()
     {
         $instance = self::getInstance();
-        $stmt = $instance->db->query("SELECT * from voluntarios")->fetchAll();
+        $stmt = $instance->db->query("select * from voluntario")->fetchAll();
 
         return $stmt;
     

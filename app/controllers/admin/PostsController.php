@@ -3,18 +3,14 @@ namespace app\controllers\admin;
 
 use app\middleware\AuthMiddleware;
 use app\models\PostModel;
+use app\services\Sanitize;
+use app\services\Sanitizer;
 use app\services\Validator;
 use core\Controller;
-
-
+use Doctrine\DBAL\DriverManager;
 
 class PostsController{
 
-
-   public function __construct()
-   {
-      AuthMiddleware::checkAuth();
-   }
   
    private function generateSlug($title)
    {
@@ -29,10 +25,26 @@ class PostsController{
 
    public function index()
    {
-      $postModel = PostModel::getInstance();
-      $heading = "Posts";
-      $posts = $postModel->all();
+      $connectionParams = [
+         'dbname' => 'aceda_db',
+         'user'=> 'root',
+         'password' => '',
+         'host' => 'localhost',
+         'driver' => 'pdo_mysql'
+      ];
       
+      // $conn = DriverManager::getConnection($connectionParams);
+
+      // $stmt = $conn->prepare("select * from post");
+      // $selected = $stmt->executeQuery();
+      // $posts = $selected->fetchAllAssociative();
+
+
+   
+      $postModel = PostModel::getInstance();  
+      $posts = $postModel->all();
+
+      $heading = "Posts";
       require Controller::view('/admin/posts/index.view.php',[
          'heading' => $heading,
          'posts' => $posts
@@ -65,11 +77,11 @@ class PostsController{
       $imageName = Validator::processImage($_FILES['image']);
       $data = 
       [
-               "title" => Validator::string($_POST['title'], 3, 255),
+               "title" => Sanitizer::string($_POST['title'], 3, 255),
                "slug" => $this->generateSlug($_POST['title']),
                //"user_id" => ($_POST['autor']?? ''),
                "status" => isset($_POST['status']) ?? $_POST['status'] === '1',
-               "content" => Validator::string($_POST['content'], 3),
+               "content" => Sanitizer::string($_POST['content']),
                "image_path" => $imageName ?? ''
       ];
       //dd($data);
@@ -123,7 +135,6 @@ class PostsController{
 
    public function destroy($id)
    {
-     dd($id);
       $instance = PostModel::getInstance();
       $stmt = $instance->delete($id->params);
       
