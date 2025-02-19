@@ -1,24 +1,24 @@
 <?php
 
 namespace app\models;
-use app\core\Model;
 use core\Database;
 
 class User 
 {  
     protected static $table = 'user';
-    private $instance = null;
+    private static $instance = null;
     private $db;
     private function __construct()
     {
-        $db = Database::getInstance();
+        $this->db = Database::getInstance();
     }
 
-    public function getInstance()
+    public static function getInstance()
     {
         if(self::$instance === null){
             self::$instance = new self;
         }
+
         return self::$instance;
     }
 
@@ -54,6 +54,7 @@ class User
         $instance = self::getInstance();
         $sql = "update user set name = :name, email = :email, password = :password where id = :id";
         $stmt = $instance->db->query($sql, [
+            'id' => $id,
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => $data['password']
@@ -75,7 +76,10 @@ class User
     public static function where($column, $value)
     {
         $instance = self::getInstance();
-        $stmt = $instance->db->query('select * from user where'. $column . ' = :value', ['value' => $value]);
+        $stmt = $instance->db->query("select * from user where $column = :value", 
+        [
+            'value' => $value
+        ]);
         return $stmt->fetch();
     }
 

@@ -36,6 +36,6 @@ class Params{
         return $params[$current + 1] ?? $params[$current];
 
     }
-
+ 
 }
 

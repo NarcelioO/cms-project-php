@@ -2,64 +2,113 @@
 
 namespace app\controllers\admin;
 
+use app\middleware\AuthMiddleware;
 use app\models\User;
+use app\services\Sanitizer;
+use app\services\Validator;
 use core\Controller;
 
-class AuthController{
+class AuthController extends Controller{
 
+    
     public function login()
     {
         if(isset($_SESSION['user_id'])){
             header('Location: /admin');
             exit;
         }
-        return require Controller::view('/admin/auth/login.view.php');
+         require Controller::view('/admin/auth/login.view.php');
     }
 
     public function register()
     {   
-        return require Controller::view('/admin/auth/register.view.php');
+        if(!isset($_SESSION['user_id'])){
+            header('Location: /admin/auth/login');
+            exit;
+        }
+        
+         require Controller::view('/admin/auth/register.view.php');
     }
 
     public function logout()
     {
         session_destroy();
         header('Location: /admin/auth/login');
-        exit();
+        exit;
     }
 
     public function authenticate()
     {
-        $email = $_POST['email'] ?? '';
+        
+        $email = Sanitizer::email($_POST['email']) ?? '';
         $password = $_POST['password'] ?? '';
 
-        $user = User::where('email', $email)->first();
-
-        if($user && password_verify($password, $user->password)){
+        $user = User::where('email', $email);
+        if($user && password_verify($password, $user['password'])){
             
-            session_start();
+            //session_start();
            
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['name'] = $user['name'];
 
             header('Location: /admin');
-            exit();
+            exit;
         }
 
         header('Location: /admin/auth/login?error=invalid_credentials');
-        exit();
+        exit;
     }
 
     public function store()
     {
-        $user = new User;
-        $data = [
-            'name' => $_POST['name'],
-            'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
-            'email' => $_POST['email']
-        ];
-        $user->create($data);
 
-        header('Location: admin/login');
+        $data = [
+            'name' => Sanitizer::string($_POST['name']),
+            'email' => Sanitizer::email($_POST['email']),
+            'password' => $_POST['password']
+        ];
+
+        $errors = [];
+
+        if(!Validator::string($data['name'], 3, 50)){
+            $errors['name'] = 'O nome deve ter entre 3 e 50 caracteres.';
+        }
+
+        if(!Validator::email($data['email'])){
+            $errors['email'] = 'O email fornecido não é valido.';
+        }
+
+        if(!Validator::password($data['password'])){
+            $errors['password'] = 'A senha deve ter pelo menos 8 caracteres.';
+        }
+
+        $user = User::where('email', $_POST['email']);
+
+        if($user){
+           $erros['email'] = 'Este e-mail já está em uso.';
+            // header('Location: /admin/auth/register');
+            // exit();
+        }
+
+        if(empty($errors)){
+            $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
+
+
+            User::create($data);
+
+            header('Location: /admin');
+            exit;
+        }
+
+        $this->render('/admin/auth/register.view.php',[
+            'errors' => $errors,
+            'data' => $data
+        ]);
+        // require Controller::view('/admin/auth/register.view.php', 
+        // [
+        //     'errors' => $errors,
+        //     'data' => $data
+        // ]);
+
     }
 }

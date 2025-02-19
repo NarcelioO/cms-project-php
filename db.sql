@@ -61,3 +61,20 @@ create table post_categoria(
     CONSTRAINT fk_post FOREIGN KEY (post_id) REFERENCES post(id) ON DELETE CASCADE,
     CONSTRAINT fk_categoria FOREIGN KEY (categoria_id) REFERENCES categoria(id) ON DELETE CASCADE
 );
+
+CREATE TABLE tb_sebrae (
+    id INT PRIMARY KEY AUTO_INCREMENT,  
+    email VARCHAR(100) NOT NULL,        
+    cpf VARCHAR(14) NOT NULL UNIQUE,   
+    nome VARCHAR(100) NOT NULL,         
+    data_nascimento DATE NOT NULL,      
+    cep VARCHAR(9) NOT NULL,            
+    endereco VARCHAR(200) NOT NULL,     
+    celular VARCHAR(15) NOT NULL,       
+    descricao_atendimento TEXT,         
+    curso_selecionado VARCHAR(100),     
+    cnpj VARCHAR(18),                   
+    razao_social VARCHAR(150),          
+    termo_autorizacao BOOLEAN NOT NULL, 
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

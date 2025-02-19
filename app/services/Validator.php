@@ -10,32 +10,34 @@ class Validator{
         'path' => __DIR__ . '/../../storage/uploads'
     ];
 
-    static function length($data, $min, $max)
+   
+
+    public static function email($email)
+    {
+        return filter_var($email, FILTER_VALIDATE_EMAIL);
+    
+    }
+
+    private static function length($data, $min, $max)
     {
         return strlen($data) >= $min && strlen($data) <= $max;
     }
 
-    public static function email($email)
+    public static function string($value, $min = 0, $max = INF)
     {
-        $email = trim($email);
-        $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-        return $email;
+        return self::length(trim($value), $min, $max);
     }
 
-    public static function string($data, $min = 1, $max = INF)
+    public static function url($value)
     {
-        if(empty($data)){
-            echo "O campo esta vazio";
-        }
-
-        $data = trim($data);
-        $data = strip_tags($data);
-        $data = htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
-
-        return self::length($data, $min, $max) ? $data : false;
-        
+        return filter_var($value, FILTER_VALIDATE_URL);
     }
 
+    public static function password($value, $min = 8)
+    {
+        return strlen($value) >= $min;
+    }
+    
     public static function processImage($image)
    {
         //verifica se o arquivo foi enviado

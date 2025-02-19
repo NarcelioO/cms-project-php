@@ -6,20 +6,36 @@ use core\Database;
 class Model
 {
     protected static $table;
-
+    private static $instance;
+    private $db;
     
+    private function __construct()
+    {
+        $this->db = Database::getInstance();
+    }
+
+    public function getInstance()
+    {
+        if(self::$instance === null){
+            self::$instance = new self;
+        }
+
+        return self::$instance;
+    }
+
     public static function all()
     {
-         $db = new Database();
-         $stmt = $db->query('select * from ' . static::$table);
+         $instance = self::getInstance();
+         $stmt = $instance->db->query('select * from ' . static::$table);
          return $stmt->fetchAll();
     }
 
     public function find($id)
     {
-        $db = new Database();
-        $stmt = $db->query('select * from ' . static::$table . ' where id = :id');
-        $stmt->bindParam(':id', $id);
+        $instance = self::getInstance();
+        $stmt = $instance->db->query('select * from ' . static::$table . ' where id = :id',[
+            'id'=>$id
+        ]);
         return $stmt->fetch();
     }
 

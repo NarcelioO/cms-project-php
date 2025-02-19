@@ -1,9 +1,8 @@
-/config
-config.php
-db.sql
-
 /storage/
 *.key
+/vendor/
+/node_modules/
+/public/storage
 
 /cache/
 *.cache
@@ -12,9 +11,8 @@ db.sql
 *.log
 
 .env
+.vscode
 
-*.sql
-*.sqlite
 *.bak
 *.tar.gz
 *.zip

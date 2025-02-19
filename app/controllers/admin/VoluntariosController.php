@@ -1,24 +1,27 @@
 <?php
 namespace app\controllers\admin;
 
+use app\middleware\AuthMiddleware;
 use app\models\Voluntarios;
+use core\Controller;
 
 class VoluntariosController{
 
+   
    
    public function index()
    {
       $heading = "Voluntarios";
       $voluntarios = Voluntarios::all();
       //dd($posts);
-      require view('admin/voluntarios/index.view.php',[
+      require Controller::view('admin/voluntarios/index.view.php',[
          'heading'=>$heading,
          'voluntarios' => $voluntarios
       ]);
    }
    public function create()
    {
-      require view('admin/voluntarios/create.view.php');
+      require Controller::view('admin/voluntarios/create.view.php');
    }
 
 }
