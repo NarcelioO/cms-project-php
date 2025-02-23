@@ -9,7 +9,9 @@ use app\services\Validator;
 use core\Controller;
 use Doctrine\DBAL\DriverManager;
 
-class PostsController{
+class PostsController extends Controller{
+
+   
 
   
    private function generateSlug($title)
@@ -45,6 +47,7 @@ class PostsController{
       $posts = $postModel->all();
 
       $heading = "Posts";
+      
       require Controller::view('/admin/posts/index.view.php',[
          'heading' => $heading,
          'posts' => $posts

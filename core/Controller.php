@@ -1,6 +1,9 @@
 <?php
+
+
 namespace core;
 use app\classes\Uri;
+use app\controllers\admin\AuthController;
 use core\Model;
 use app\exceptions\ControllerNotExistException;
 use app\middleware\AuthMiddleware;

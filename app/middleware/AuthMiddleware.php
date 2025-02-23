@@ -6,9 +6,13 @@ class AuthMiddleware{
 
     public static function checkAuth()
     {
-        if(!isset($_SESSION['user_id'])){
+        if(!self::isAuthenticated()){
             header('Location: /admin/auth/login');
             exit;
         }
+    }
+    private static function isAuthenticated()
+    {
+        return isset($_SESSION['user_id']);
     }
 }

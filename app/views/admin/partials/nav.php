@@ -7,32 +7,31 @@
     </div>
     <ul class="flex flex-col py-4">
       <li>
-        <a href="/admin" class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800">
-          <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400"></span>
+        <a href="/admin" class="px-5 flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800">
+         
           <span class="text-sm font-semibold">Home</span>
         </a>
       </li>
       <li>
-        <a href="/admin/posts" class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800">
-          <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400"></span>
+        <a href="/admin/posts" class="px-5 flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800">
           <span class="text-sm font-semibold">Posts</span>
         </a>
       </li>
       <li>
-        <a href="/admin/voluntarios" class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800">
-          <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400"></span>
+        <a href="/admin/voluntarios" class="px-5 flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800">
+          
           <span class="text-sm font-semibold">Voluntários</span>
         </a>
       </li>
       <li>
-        <a href="/admin/cursos" class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800">
-          <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400"></span>
+        <a href="/admin/cursos" class="px-5 flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800">
+          
           <span class="text-sm font-semibold">Cursos</span>
         </a>
       </li>
       <li>
-        <a href="/admin/servicos" class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800">
-          <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400"></span>
+        <a href="/admin/servicos" class="px-5 flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800">
+          
           <span class="text-sm font-semibold">Serviços</span>
         </a>
       </li>

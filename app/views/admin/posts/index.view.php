@@ -12,23 +12,26 @@
                 <a href="/admin/posts/create" class="px-3 py-2 bg-blue-600 text-white font-semibold rounded-md">Nova Postagem</a>
             </div>
             <div class="p-4">
+
             <?php if(isset($_SESSION['sucess'])):?>
-            <div class="bg-green-200 p-4">
-                <?= $_SESSION['sucess'] ?>
-            </div>
-            <?php unset($_SESSION['sucess']);?>
-        <?php endif;?>
-        <?php if(isset($_SESSION['error'])):?>
-            <div class="bg-red-200 p-4">
-                <?= $_SESSION['error'] ?>
-            </div>
-            <?php unset($_SESSION['error']);?>
-        <?php endif;?>
+                <div class="bg-green-200 px-3 py-2" id="sucess">
+                    <?= $_SESSION['sucess'] ?>
+                </div>
+                <?php unset($_SESSION['sucess']);?>
+            <?php endif;?>
+
+            <?php if(isset($_SESSION['error'])):?>
+                <div class="bg-red-200 p-4" class="error">
+                    <?= $_SESSION['error'] ?>
+                </div>
+                <?php unset($_SESSION['error']);?>
+            <?php endif;?>
+
             <table class="w-full">
                 <thead class="border">
                     <tr>
                    
-                    <th class="px-4 border py-2 text-left text-sm ">Titulo</th>
+                    <th class="px-4 border py-2 text-left text-sm">Titulo</th>
                     <th class="px-4 border py-2 text-left text-sm">Categoria</th>
                     <th class="px-4 border py-2 text-left text-sm">Autor</th>
                     <th class="px-4 border py-2 text-left text-sm">Status</th>
@@ -42,7 +45,7 @@
                     <tr class="odd:bg-white even:bg-gray-100 border">
                     
                         <td class=" font-medium text-sm text-gray-700 px-4 py-2 underline:bg-sky-500 " >
-                            <a href="#"><?= $post['title'];?></a>
+                            <?= $post['title'];?>
                         </td>
                     <td class=" font-medium text-sm text-gray-700 border px-4 py-2"><?= $post['categoria'] ?? ''?></td>
                     <td class=" font-medium text-sm text-gray-700 border px-4 py-2">Milena Alundaasdsadsa</td>
@@ -82,20 +85,29 @@
 
 <script>
    document.addEventListener('DOMContentLoaded', function(){
-    let modal = document.getElementById("confirmDeleteModal");
-    let openModalButton = document.getElementById("openModalButton");
-    let closeModalButton = document.getElementById("closeModalButton");
-    let cancelButton = document.getElementById("cancelButton");
-    let confirmDeleteButton = document.getElementById("confirmDeleteButton");
+    const modal = document.querySelector("#confirmDeleteModal");
+    const openModalButton = document.querySelectorAll("#openModalButton");
+    const closeModalButton = document.querySelector("#closeModalButton");
+    const cancelButton = document.querySelector("#cancelButton");
+    const confirmDeleteButton = document.querySelector("#confirmDeleteButton");
 
+    const sucess = document.querySelector("#sucess");
+    const error = document.querySelector("#error");
 
+    if(sucess){setTimeout(() => sucess.remove(), 2000)}
+    if(error){setTimeout(() => error.remove(), 2000)}
 
     let postId = null
 
-    openModalButton.addEventListener("click", function(){
-        postId = this.getAttribute("data-post-id");
-        modal.classList.remove('hidden')
-    })
+    openModalButton.forEach(
+        function(button){
+            button.addEventListener('click', function(){
+                postId = this.getAttribute("data-post-id");
+                modal.classList.remove('hidden')
+            })
+        }
+    )
+
 
     function closeModal(){
         modal.classList.add('hidden')
@@ -106,5 +118,7 @@
     confirmDeleteButton.addEventListener('click',function(){
         window.location.href = `/admin/posts/destroy/${postId}`
     })
+
+
    })
 </script>

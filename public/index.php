@@ -5,24 +5,20 @@ use core\Controller;
 use core\Method;
 use core\Params;
 
-
-
 try{
 
-    $controller = new Controller;
-    $controller = $controller->load();
+    $controller = (new Controller)->load();
     
-    $method = new Method;
-    $method = $method->load($controller);
+    $method = (new Method)->load($controller);
 
-    $params = new Params;
-    $params = $params->load();
+    $params = (new Params)->load();
     
     $controller->$method($params);
    
 }catch(Exception $e){
+    error_log($e->getMessage());
     header('Location: /erro/404');
-    dd('Erro: ' .  $e->getMessage());
+    exit;
 
 }
 

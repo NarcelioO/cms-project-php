@@ -6,15 +6,15 @@ Esta é a documentação para a aplicação demo. Aqui você encontrará todas a
 ## Dependências
 Certifique-se de ter as seguintes dependências instaladas:
 
-- PHP >= 7.4
+- PHP >= 8.2
 - Composer
 
 ## Instalação
 
 ### Passo 1: Clonar o Repositório
 ```bash
-git clone https://github.com/narcelioO/demo-aceda.git
-cd demo-aceda
+git clone https://github.com/narcelioO/cms-project-php.git
+cd cms-project-php
 ```
 
 ### Passo 2: Instalar Dependências

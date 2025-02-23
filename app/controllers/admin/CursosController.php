@@ -1,11 +1,10 @@
 <?php
 namespace app\controllers\admin;
 
-use core\Controller;
+use app\controllers\Controller;
 
-class CursosController{
+class CursosController extends Controller{
 
-   
    
    public function index()
    {

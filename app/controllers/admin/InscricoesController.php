@@ -9,7 +9,7 @@ class InscricoesController{
    
    public function index()
    {
-      $heading = "Empreenda";
+      $heading = "Inscrições";
 
       require Controller::view('/admin/inscricoes/index.view.php',[
          'heading'=>$heading,
